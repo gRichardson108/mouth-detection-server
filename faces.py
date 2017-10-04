@@ -52,11 +52,15 @@ def highlight_faces(image, faces, output_filename):
         facebox = [(vertex.x, vertex.y)
                for vertex in face.bounding_poly.vertices]
         draw.line(facebox + [facebox[0]], width=5, fill='#00ff00')
-        mouthbox = []
+        mouthbox_x = []
+        mouthbox_y = []
         for landmark in face.landmarks:
             if landmark.type in mouthLandmarks:
-                mouthbox.append((landmark.position.x, landmark.position.y))
-        draw.line(mouthbox +[mouthbox[0]], width=2, fill='#0000ff')
+                mouthbox_x.append(landmark.position.x)
+                mouthbox_y.append(landmark.position.y)
+        mouth_upper_left = (min(mouthbox_x), min(mouthbox_y))
+        mouth_lower_right = (max(mouthbox_x), max(mouthbox_y))
+        draw.rectangle((mouth_upper_left, mouth_lower_right),outline='#0000ff')
     im.save(output_filename)
 # [END def_highlight_faces]
 
