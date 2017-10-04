@@ -1,0 +1,5 @@
+authkeys/*
+env/*
+*.jpg
+.idea/*
+__pycache__/*
