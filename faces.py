@@ -38,14 +38,25 @@ def highlight_faces(image, faces, output_filename):
       output_filename: the name of the image file to be created, where the
           faces have polygons drawn around them.
     """
+    UPPER_LIP = 9
+    LOWER_LIP = 10
+    MOUTH_LEFT = 11
+    MOUTH_RIGHT = 12
+    #MOUTH_CENTER = 13
+    mouthLandmarks = (UPPER_LIP, LOWER_LIP, MOUTH_LEFT, MOUTH_RIGHT)
+
     im = Image.open(image)
     draw = ImageDraw.Draw(im)
 
     for face in faces:
-        box = [(vertex.x, vertex.y)
+        facebox = [(vertex.x, vertex.y)
                for vertex in face.bounding_poly.vertices]
-        draw.line(box + [box[0]], width=5, fill='#00ff00')
-
+        draw.line(facebox + [facebox[0]], width=5, fill='#00ff00')
+        mouthbox = []
+        for landmark in face.landmarks:
+            if landmark.type in mouthLandmarks:
+                mouthbox.append((landmark.position.x, landmark.position.y))
+        draw.line(mouthbox +[mouthbox[0]], width=2, fill='#0000ff')
     im.save(output_filename)
 # [END def_highlight_faces]
 
