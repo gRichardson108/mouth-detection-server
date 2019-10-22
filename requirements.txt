@@ -11,7 +11,7 @@ googleapis-common-protos==1.5.3
 grpcio==1.6.3
 idna==2.6
 olefile==0.44
-Pillow==4.3.0
+Pillow==6.2.0
 ply==3.8
 protobuf==3.4.0
 pyasn1==0.3.6
